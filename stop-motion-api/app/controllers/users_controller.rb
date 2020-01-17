@@ -6,7 +6,7 @@ class UsersController < ApplicationController
         if user.valid? 
             render json: user
         else
-            render json: { errors: ["error"] }, status: :not_acceptable
+            render json: { errors: user.errors.full_messages }, status: :not_acceptable
         end
     end 
 
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:username, :email, :password, :password_confirmation)
+        params.require(:user).permit(:username, :email, :password)
     end 
 
 end
