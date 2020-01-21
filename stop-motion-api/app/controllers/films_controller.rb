@@ -13,15 +13,20 @@ class FilmsController < ApplicationController
         end 
     end 
 
-    private
-
-    def protected_action
-        if !logged_in?
-            render json: { errors: "you must be logged in" }, status: :unauthorized
-        end
+    def update
+        
     end 
 
+    def destroy
+        film = Film.find_by(params[:id])
+
+        render json: film
+        film.delete
+    end
+
+    private    
+
     def film_params
-        params.require(:film).permit(:title, :description)
+        params.require(:film).permit(:title, :description, :user_id)
     end
 end
