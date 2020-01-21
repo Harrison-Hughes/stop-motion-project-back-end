@@ -1,13 +1,21 @@
 class FilmsController < ApplicationController
 
-    before_action :protected_action
+    before_action :protected_action, except: :index
+
+    def index
+        films = Film.all 
+
+        render json: films.to_json(:include => {
+            :frames => {:only => [:frame_string, :order]}
+        })
+    end 
 
     def create
         film = Film.create(film_params)
         film.update(user: @current_user)
 
         if film.valid?
-            render json: film 
+            render json: film, include: [:frame]
         else 
             render json: { errors: film.errors.full_messages }, status: :not_acceptable
         end 
