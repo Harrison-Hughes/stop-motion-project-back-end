@@ -3,11 +3,11 @@ class FramesController < ApplicationController
     before_action :protected_action
 
     def create
-        frame = Frame.create(frame)
-        frame.update(user: @current_user)
+        frame = Frame.create(frame_params)
+        # frame.update(user: @current_user)
 
         if frame.valid?
-            render json: frame 
+            render json: frame
         else 
             render json: { errors: frame.errors.full_messages }, status: :not_acceptable
         end 
@@ -21,8 +21,8 @@ class FramesController < ApplicationController
     
     private
 
-    def frame
-        params.require(:frame).permit(:frame_string, :order, :film_id)
+    def frame_params
+        params.require(:frame).permit(:film_id, :frame_string, :order)
     end
 
 end
