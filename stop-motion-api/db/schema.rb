@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_120110) do
 
   create_table "frames", force: :cascade do |t|
     t.string "frame_string"
-    t.bigint "order"
+    t.string "order"
     t.bigint "film_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

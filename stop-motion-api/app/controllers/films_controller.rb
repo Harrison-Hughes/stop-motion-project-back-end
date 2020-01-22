@@ -6,7 +6,7 @@ class FilmsController < ApplicationController
         films = Film.all 
 
         render json: films.to_json(:include => {
-            :frames => {:only => [:frame_string, :order]}
+            :frames => {:only => [:frame_string, :order, :id]}
         })
     end 
 
@@ -26,10 +26,9 @@ class FilmsController < ApplicationController
     end 
 
     def destroy
-        film = Film.find_by(params[:id])
-
-        render json: film
-        film.delete
+        film = Film.find(params[:id])
+        film.destroy
+        # render json: film
     end
 
     private    
