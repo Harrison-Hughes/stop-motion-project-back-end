@@ -17,6 +17,9 @@ class FramesController < ApplicationController
     end
 
     def destroy
+        frame = Frame.find(params[:id])
+        frame.destroy
+        # render json: frame
     end 
     
     private
